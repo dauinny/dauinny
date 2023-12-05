@@ -195,6 +195,7 @@ void ajuda(int tiro[], int nav[][scol], int tent) {
         if (tiro[1] == nav[i][1]) {
             column++;
         }
+    
     }
     cout << "------------------------"; 
     cout << endl;
@@ -203,3 +204,106 @@ void ajuda(int tiro[], int nav[][scol], int tent) {
     cout << "Linha: " << tiro[0] + 1 << "; " << row << " Navios" << endl;
     cout << "Coluna: " << tiro[1] + 1 << "; " << column << " Navios" << endl <<"------------------------" <<endl;
 }
+
+
+
+
+
+
+#include "biblioteca.h"
+
+void iniciaTab(int tab[][col]) {
+    for (int i = 0; i < lin; i++) {
+        for (int j = 0; j < col; j++) {
+            tab[i][j] = -1;
+        }
+    }
+}
+void mostraTab(int tab[][col]) {
+    cout << endl;
+    cout << "\t\t\t\tTABULEIRO\t\t\t" << endl;
+    cout<< "\tMar:~"<<endl;
+  cout<< "\tErrou o tiro:*"<<endl;
+  cout<< "\tAcertou o tiro:X\n"<<endl;
+
+    for (int i = 0; i < lin; i++) {
+        for (int j = 0; j < col; j++) {
+            if (tab[i][j] == -1)
+                cout << "\t~\t";
+            else if (tab[i][j] == 0)
+                cout << "\t*\t";
+            else
+                cout << "\tX\t";
+        }
+        cout << endl;
+    }
+    cout << endl;
+}
+void iniciaNav(int nav[][scol]) {
+    srand(time(NULL));
+
+    for (int i = 0; i < slin; i++) {
+        nav[i][0] = rand() % lin;
+        nav[i][1] = rand() % col;
+
+        for (int j = 0; j < i; j++) {
+            while (nav[i][0] == nav[j][0] && nav[i][1] == nav[j][1]) {
+                nav[i][0] = rand() % lin;
+                nav[i][1] = rand() % col;
+            }
+        }
+    }
+
+
+}
+void efetuaTiro(int tiro[]) {
+    cout << "\n\tEntre com as coordenadas!!!!\t\t\n";
+    cout << "\tLinha(1-5): ";
+    cin >> tiro[0];
+    tiro[0]--;
+    cout << "\tColuna(1-5): ";
+    cin >> tiro[1];
+    tiro[1]--;
+}
+bool verificaTiro(int tiro[], int nav[][scol]) {
+    for (int i = 0; i < slin; i++) {
+        if (tiro[0] == nav[i][0] && tiro[1] == nav[i][1]) {
+            return true;
+        }
+    }
+    return false;
+}
+void ajuda(int tiro[], int nav[][scol], int tent) {
+    int column = 0, row = 0;
+
+    for (int i = 0; i < slin; i++) {
+        if (tiro[0] == nav[i][0]) {
+            row++;
+        }
+        if (tiro[1] == nav[i][1]) {
+            column++;
+        }
+    }
+    cout << "------------------------"; 
+    cout << endl;
+    cout << "Aqui está a dica: " << endl;
+    //cout << "\nDica: " << tent;
+    cout << "Linha: " << tiro[0] + 1 << "; " << row << " Navios" << endl;
+    cout << "Coluna: " << tiro[1] + 1 << "; " << column << " Navios" << endl <<"------------------------" <<endl;
+}
+#include <iostream>
+#include <ctime>
+#include <cstdlib>
+using namespace std;
+#define lin  5
+#define col  5
+#define slin 3
+#define scol 2
+
+
+void iniciaTab(int tab[][col]);
+void mostraTab(int tab[][col]);
+void iniciaNav(int nav[][scol]);
+void efetuaTiro(int tiro[]);
+bool verificaTiro(int tiro[], int nav[][scol]);
+void ajuda(int tiro[], int nav[][scol], int tent);
